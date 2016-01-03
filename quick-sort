@@ -1,0 +1,45 @@
+#include<stdio.h>
+#define n 10
+//#include<sys/time.h>
+//#define random(i,j) i+rand()%(j-i+1)
+
+void swap(int arr[],int a,int b)
+{
+    int temp=0;
+    temp=arr[a];
+    arr[a]=arr[b];
+    arr[b]=temp;
+}
+void quicksort(int a[],int left,int right)
+{
+    if(left>=right)return;
+    int pivot=left  ; //random(left,right);
+    int last=left;
+    int i;
+    for(i=left+1;i<=right;i++)
+    {
+        if(a[i]<a[pivot])
+        {
+            swap(a,++last,i);
+        }
+    }
+    swap(a,left,last);
+    quicksort(a,left,last-1);
+    quicksort(a,last+1,right);
+}
+void main()
+{
+    //struct timeval t1,t2;
+    int a[n],i;
+    for(i=0;i<=n;i++)
+    {
+        a[i]=rand();
+    }
+    //gettimeofday(&t1,NULL);
+    quicksort(a,0,n-1);
+    //gettimeofday(&t2,NULL);
+    for(i=0;i<=n-1;i++)
+    printf("%d \n",a[i]);
+    //printf("   %ld",(t2.tv_sec-t1.tv_sec)*1000000+(t2.tv_usec-t1.tv_usec));
+
+}
