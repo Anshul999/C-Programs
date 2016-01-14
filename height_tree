@@ -1,0 +1,72 @@
+#include<stdio.h>
+
+struct node
+{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+struct node* newnode(int data)
+{
+    struct node* node = (struct node*)malloc(sizeof(struct node));
+    node -> data = data;
+    node -> left = NULL;
+    node -> right = NULL;
+
+    return (node);
+}
+
+int height(struct node* node)
+{
+    if(node == 0) return;
+    else
+    {
+        int lh = height(node -> left);
+        int rh = height(node -> right);
+        int x = (lh > rh)?lh+1:rh +1;
+        return x;
+    }
+}
+
+void inorder(struct node* node)
+{
+    if(node == NULL)
+    return;
+    inorder(node->left);
+    printf("%d ",node->data);
+    inorder(node->right);
+}
+
+struct node* insert(struct node* node, int data)
+{
+    if(node == NULL)
+        return(newnode(data));
+    if(data < node -> data)
+        node -> left = insert(node -> left, data);
+    if(data > node -> data)
+        node -> right = insert(node -> right , data);
+    return node;
+}
+
+main()
+{
+    /* Let us create following BST
+              50
+           /     \
+          30      70
+         /  \    /  \
+       20   40  60   80 */
+    struct node *node = NULL;
+    node = insert(node, 50);
+    insert(node, 30);
+    insert(node, 20);
+    insert(node, 40);
+    insert(node, 70);
+    insert(node, 60);
+    insert(node, 80);
+
+   int x = height(node);
+    //inorder(node);
+    printf("%d",x);
+}
